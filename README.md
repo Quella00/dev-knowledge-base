@@ -30,22 +30,22 @@
 
 ## 🚀 快速开始 (Quick Start)
 
-### 1. 环境准备
+## 1. 环境准备
 确保你的本地环境已安装：
 - Node.js (v18.17 或更高版本)
 
-### 2. 常用命令汇总
+## 2. 常用命令汇总
 
 你可以直接按顺序执行以下命令来启动项目：
 
-# 1. 安装依赖
+### 1. 安装依赖
 npm install
 
-# 2. 初始化数据库 (创建表结构)
+### 2. 初始化数据库 (创建表结构)
 # 注意：如果是首次运行或修改了 schema.prisma，必须运行此命令
 npx prisma migrate dev --name init
 
-# 3. 启动开发服务器
+### 3. 启动开发服务器
 npm run dev
 
 启动成功后，访问：http://localhost:3000
@@ -53,18 +53,17 @@ npm run dev
 ## 🗄️ 数据库管理
 本项目使用 SQLite，数据库文件位于项目根目录下的 dev_kb.db。
 
-# 查看并管理本地数据 (打开 Web 管理界面)
+### 查看并管理本地数据 (打开 Web 管理界面)
 npx prisma studio
 
-# 如果修改了 prisma/schema.prisma 模型，运行此命令同步数据库
+### 如果修改了 prisma/schema.prisma 模型，运行此命令同步数据库
 npx prisma migrate dev --name update_reason
 
-# 彻底重置数据库 (清空所有数据)
+### 彻底重置数据库 (清空所有数据)
 npx prisma migrate reset
 
-## 📂 项目结构
-.
-├── app/
+## 项目结构
+app/
 │   ├── actions.ts       # 后端逻辑 (Server Actions: 增删改查、登录注册)
 │   ├── lib.ts           # 工具函数 (Session 加密/解密)
 │   ├── api/             # API 路由 (验证码接口)
@@ -76,4 +75,4 @@ npx prisma migrate reset
 ├── public/              # 静态资源
 └── ...配置文件
 
-# 本项目使用了 React 19 RC (Next.js 15 默认)。如果遇到依赖冲突，尝试使用 npm install --legacy-peer-deps。
+### 本项目使用了 React 19 RC (Next.js 15 默认)。如果遇到依赖冲突，尝试使用 npm install --legacy-peer-deps。
