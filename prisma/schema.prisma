@@ -1,0 +1,24 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Issue {
+  id        Int      @id @default(autoincrement())
+  title     String
+  problem   String
+  solution  String
+  tags      String?
+  
+  // 新增字段
+  category  String   @default("未分类") // 用于生成左侧目录树
+  isFavorite Boolean @default(false)   // 用于收藏
+  
+  createdAt DateTime @default(now())
+}
