@@ -1,0 +1,38 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/lib/prisma-client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+
+  // 关系：一个用户拥有多个 Issue
+  issues Issue[]
+}
+
+model Issue {
+  id         Int      @id @default(autoincrement())
+  title      String
+  problem    String
+  solution   String
+  tags       String?
+  category   String   @default("未分类")
+  isFavorite Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  // === 新增关联字段 ===
+  userId Int // 外键
+  user   User @relation(fields: [userId], references: [id]) // 关联关系
+
+  // === 新增字段 ===
+  isPublic Boolean @default(false) // 默认为私有
+}

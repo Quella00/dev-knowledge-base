@@ -1,14 +1,17 @@
 // app/actions.ts
 'use server'
 
-import { PrismaClient } from '@prisma/client'
+//import { PrismaClient } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
 import { setSession, logout as logoutAction, decrypt, getSession } from '@/app/lib' // 确保路径正确
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-const prisma = new PrismaClient()
+import prisma from './lib/db'; 
+
+
+//const prisma = new PrismaClient()
 
 // === 1. 获取用户专属数据 ===
 export async function getIssues(query?: string) {

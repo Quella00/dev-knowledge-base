@@ -1,12 +1,60 @@
 {
   "name": "dev-knowledge-base",
   "version": "0.1.0",
-  "private": true,
+  "private": true,  
+  "author": "Levi", 
+  "description": "My Dev Knowledge Base",
+  "main": "main.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 30001",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start -p 30001",
+    "lint": "eslint",
+    "electron-dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:30001 && electron .\"",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.devkb.app",
+    "productName": "Dev Knowledge Base",
+    "directories": {
+      "output": "dist_electron" 
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "asar": true,
+    "extraResources": [
+      {
+        "from": "prisma/dev_kb.db",
+        "to": "prisma/dev_kb.db"
+      },
+      {
+        "from": "node_modules/@prisma/engines",
+        "to": "bin",
+        "filter": [
+          "query_engine-windows*.dll.node",
+          "query_engine-windows*.exe"
+        ]
+      }
+    ],
+    "asarUnpack": [
+      "**/node_modules/@prisma/**/*",
+      "**/node_modules/.prisma/**/*"
+    ],
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "**/node_modules/.prisma/**/*" 
+    ],
+    "asarUnpack": [
+      "node_modules/next",
+      "node_modules/@prisma/client/**/*",
+      "node_modules/.prisma/**/*", 
+      "prisma/**/*"
+    ]
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
@@ -30,10 +78,15 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
     "eslint": "^9",
     "eslint-config-next": "16.0.6",
     "prisma": "^5.11.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.3"
   }
 }
